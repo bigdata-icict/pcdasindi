@@ -12,14 +12,19 @@ get_pop_mun <- function(conn, ano){
 
   query <- paste0("ANO:", ano)
 
-  pop <- elastic::Search(conn, index="svs-pop-dss",
+  pop <- try(elastic::Search(conn, index="svs-pop-dss",
                     body = agg_pop_mun,
                     q = query,
-                    asdf = TRUE)
+                    asdf = TRUE))
+  if(class(pop) == "try-error") {
+    message("It was not posible to connect to the PCDaS ElasticSearch cluster.")
+    message("Your username or password may be incorrect or the cluster is offline.")
+    message("Please check your credentials or try again later.")
+  } else {
+    pop <- pop$aggregations$a1$buckets
+    pop$doc_count <- NULL
+    names(pop) <- c("cod_mun", "pop")
 
-  pop <- pop$aggregations$a1$buckets
-  pop$doc_count <- NULL
-  names(pop) <- c("cod_mun", "pop")
-
-  return(pop)
+    return(pop)
+  }
 }
