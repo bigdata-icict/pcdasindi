@@ -1,3 +1,4 @@
+# Taxa de mortalidade na infância - C.16
 indi_c.16 <- function(conn, ano, multi = 1000){
 
   sim <- get_sim_mun(conn = conn, ano = ano, idade_obito_anos_min = 0, idade_obito_anos_max = 5)

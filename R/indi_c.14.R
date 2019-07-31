@@ -1,4 +1,5 @@
-indi_c.14 <- function(conn, ano, multi = 100){
+# Taxa de mortalidade específica por aids - C.14
+indi_c.14 <- function(conn, ano, multi = 100000){
 
   categorias <- c(
     "B20   Doenc p/HIV result doenc infecc e parasit",
@@ -23,8 +24,8 @@ indi_c.14 <- function(conn, ano, multi = 100){
   pop <- get_pop_mun(conn = conn, ano = ano)
 
   df <- dplyr::left_join(sim, pop, by = c("cod_mun", "cod_mun")) %>%
-    mutate(indi_c.2 = sim/pop*multi) %>%
-    select(cod_mun, indi_c.2)
+    mutate(indi_c.14 = sim/pop*multi) %>%
+    select(cod_mun, indi_c.14)
 
   return(df)
 }

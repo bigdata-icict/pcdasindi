@@ -1,3 +1,4 @@
+# Mortalidade proporcional por grupos de causas - C.4
 indi_c.4 <- function(conn, ano, multi = 100){
 
   capitulos <- c(
@@ -49,7 +50,8 @@ indi_c.4 <- function(conn, ano, multi = 100){
            CapXVI = CapXVI/pop*multi,
            CapXX = CapXX/pop*multi,
            DemaisCausasMalDefinidas = DemaisCausasMalDefinidas/pop*multi) %>%
-    mutate(Total = rowSums(.[2:8]))
+    mutate(Total = rowSums(.[2:8])) %>%
+    select(-pop)
 
   return(df)
 }

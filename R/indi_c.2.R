@@ -1,3 +1,4 @@
+# Taxa de mortalidade perinatal - C.2
 indi_c.2 <- function(conn, ano, multi = 1000){
 
   sim <- get_sim_mun(conn = conn, ano = ano, idade_obito_dias_min = 0, idade_obito_dias_max = 6)

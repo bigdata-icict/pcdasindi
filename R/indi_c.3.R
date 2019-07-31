@@ -1,3 +1,4 @@
+# Razão de mortalidade materna - C.3
 indi_c.3 <- function(conn, ano, multi = 100000){
 
   categorias <- c(
@@ -60,7 +61,6 @@ indi_c.3 <- function(conn, ano, multi = 100000){
     "A34   Tetano obstetrico",
     "F53   Transt mentais comport assoc puerperio NCOP",
     "M83   Osteomalacia do adulto"
-
   )
 
 

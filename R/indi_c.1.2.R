@@ -1,3 +1,4 @@
+# Taxa de mortalidade neonatal tardia - C.1.2
 indi_c.1.2 <- function(conn, ano, multi = 1000){
 
   sim <- get_sim_mun(conn = conn, ano = ano, idade_obito_dias_min = 7, idade_obito_dias_max = 27)

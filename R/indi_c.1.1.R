@@ -1,3 +1,4 @@
+# Taxa de mortalidade neonatal precoce - C.1.1
 indi_c.1.1 <- function(conn, ano, multi = 1000){
 
   sim <- get_sim_mun(conn = conn, ano = ano, idade_obito_anos_min = 0, idade_obito_anos_max = 6)

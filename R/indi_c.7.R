@@ -1,3 +1,4 @@
+# Proporção de óbitos por infecção respiratória aguda em menores de 5 anos de idade - C.7
 indi_c.7 <- function(conn, ano, multi = 100){
 
   categorias <- c(
@@ -37,8 +38,8 @@ indi_c.7 <- function(conn, ano, multi = 100){
   sim2 <- get_sim_mun(conn = conn, ano = ano, idade_obito_anos_min = 0, idade_obito_anos_max = 5, causabas_capitulo = "XVIII.Sint sinais e achad anorm ex clín e laborat")
 
   df <- dplyr::left_join(sim, sim2, by = c("cod_mun", "cod_mun")) %>%
-    mutate(indi_c.2 = sim.x/sim.y*multi) %>%
-    select(cod_mun, indi_c.2)
+    mutate(indi_c.7 = sim.x/sim.y*multi) %>%
+    select(cod_mun, indi_c.7)
 
   return(df)
 }

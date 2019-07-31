@@ -1,4 +1,5 @@
-indi_c.12 <- function(conn, ano, multi = 100){
+# Taxa de mortalidade específica por diabete melito - C.12
+indi_c.12 <- function(conn, ano, multi = 100000){
 
   categorias <- c(
     "E10   Diabetes mellitus insulino-dependente",
@@ -23,8 +24,8 @@ indi_c.12 <- function(conn, ano, multi = 100){
   pop <- get_pop_mun(conn = conn, ano = ano)
 
   df <- dplyr::left_join(sim, pop, by = c("cod_mun", "cod_mun")) %>%
-    mutate(indi_c.2 = sim/pop*multi) %>%
-    select(cod_mun, indi_c.2)
+    mutate(indi_c.12 = sim/pop*multi) %>%
+    select(cod_mun, indi_c.12)
 
   return(df)
 }
