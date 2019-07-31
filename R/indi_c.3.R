@@ -56,7 +56,11 @@ indi_c.3 <- function(conn, ano, multi = 100000){
     #"O96   Morte qq caus obst mais 42d menos 1a parto",
     #"O97   Morte p/sequelas causas obstetricas diretas",
     "O98   Doen inf paras mat COP compl grav part puerp",
-    "O99   Outr doenc mat COP compl grav parto puerp"
+    "O99   Outr doenc mat COP compl grav parto puerp",
+    "A34   Tetano obstetrico",
+    "F53   Transt mentais comport assoc puerperio NCOP",
+    "M83   Osteomalacia do adulto"
+
   )
 
 
