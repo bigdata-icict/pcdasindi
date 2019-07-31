@@ -1,13 +1,16 @@
 Package: pcdasindi
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Calculates some RIPSA indicators for Brazilian municipalities.
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Raphael de Freitas Saldanha
+Maintainer: Raphael de Freitas Saldanha <raphael.saldanha@icict.fiocruz.br>
+Description: This packages calculates health indicators to Brazil following the RIPSA 2012 methodology for municipalities. 
+    It uses raw data from DataSUS (MS) stored in the Plataforma de Ciência de Dados aplicada à Saúde (PCDaS), a project from Fundação Oswaldo Cruz (Fiocruz).
+    A username and password from PCDaS are needed in order to use this package and can be freely obtained at https://bigdata.icict.fiocruz.br
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Imports:
-    dplyr
+    dplyr,
+    elastic
+RoxygenNote: 6.1.1

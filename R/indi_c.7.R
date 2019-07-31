@@ -1,4 +1,16 @@
-# Proporção de óbitos por infecção respiratória aguda em menores de 5 anos de idade - C.7
+#'
+#' Proporção de óbitos por infecção respiratória aguda em menores de 5 anos de idade - C.7
+#'
+#' Follows the RIPSA 2012 card \url{http://fichas.ripsa.org.br/2012/c-7}
+#'
+#' @param conn Connection object created with \code{\link{pcdas_connect}}.
+#' @param ano numeric. Year.
+#' @param multi Indicator multiplier. Defaults to RIPSA recommendation.
+#'
+#' @return A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and the calculated indicator.
+#' @examples
+#' c.7 <- indi_c.7(conn, 2010)
+
 indi_c.7 <- function(conn, ano, multi = 100){
 
   categorias <- c(

@@ -1,4 +1,16 @@
-# Taxa de mortalidade específica por aids - C.14
+#'
+#' Taxa de mortalidade específica por aids - C.14
+#'
+#' Follows the RIPSA 2012 card \url{http://fichas.ripsa.org.br/2012/c-14}
+#'
+#' @param conn Connection object created with \code{\link{pcdas_connect}}.
+#' @param ano numeric. Year.
+#' @param multi Indicator multiplier. Defaults to RIPSA recommendation.
+#'
+#' @return A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and the calculated indicator.
+#' @examples
+#' c.14 <- indi_c.14(conn, 2010)
+
 indi_c.14 <- function(conn, ano, multi = 100000){
 
   categorias <- c(

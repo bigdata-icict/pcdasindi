@@ -1,6 +1,14 @@
-get_pop_mun <- function(conn, ano){
+#' Get population for municipalities
+#'
+#' This function retrieves population for all Brazilian municipalities from PCDaS ElasticSearch cluster for a specified year.
+#'
+#' @param conn Connection object created with \code{\link{pcdas_connect}}.
+#' @param ano numeric. Year.
+#' @return A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and population (\code{pop}).
+#' @examples
+#' pop_df <- get_pop_mun(conn = conn, ano = 2010)
 
-  #source("R/agg_pop_full_mun.R", local = TRUE)
+get_pop_mun <- function(conn, ano){
 
   query <- paste0("ANO:", ano)
 

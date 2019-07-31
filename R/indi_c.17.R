@@ -1,4 +1,16 @@
-# Taxa de mortalidade específica por doenças transmissíveis - C.17
+#'
+#' Taxa de mortalidade específica por doenças transmissíveis - C.17
+#'
+#' Follows the RIPSA 2012 card \url{http://fichas.ripsa.org.br/2012/c-17}
+#'
+#' @param conn Connection object created with \code{\link{pcdas_connect}}.
+#' @param ano numeric. Year.
+#' @param multi Indicator multiplier. Defaults to RIPSA recommendation.
+#'
+#' @return A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and the calculated indicator.
+#' @examples
+#' c.17 <- indi_c.17(conn, ano = 2016)
+
 indi_c.17 <- function(conn, ano, multi = 100000){
 
   categorias <- c(

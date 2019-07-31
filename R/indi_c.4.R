@@ -1,4 +1,16 @@
-# Mortalidade proporcional por grupos de causas - C.4
+#'
+#' Mortalidade proporcional por grupos de causas - C.4
+#'
+#' Follows the RIPSA 2012 card \url{http://fichas.ripsa.org.br/2012/c-4}
+#'
+#' @param conn Connection object created with \code{\link{pcdas_connect}}.
+#' @param ano numeric. Year.
+#' @param multi Indicator multiplier. Defaults to RIPSA recommendation.
+#'
+#' @return A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and the calculated indicator.
+#' @examples
+#' c.4 <- indi_c.4(conn, 2010)
+
 indi_c.4 <- function(conn, ano, multi = 100){
 
   capitulos <- c(

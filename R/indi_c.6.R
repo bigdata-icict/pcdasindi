@@ -1,4 +1,16 @@
-# Proporção de óbitos por doença diarreica aguda em menores de 5 anos de idade - C.6
+#'
+#' Proporção de óbitos por doença diarreica aguda em menores de 5 anos de idade - C.6
+#'
+#' Follows the RIPSA 2012 card \url{http://fichas.ripsa.org.br/2012/c-6}
+#'
+#' @param conn Connection object created with \code{\link{pcdas_connect}}.
+#' @param ano numeric. Year.
+#' @param multi Indicator multiplier. Defaults to RIPSA recommendation.
+#'
+#' @return A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and the calculated indicator.
+#' @examples
+#' c.6 <- indi_c.6(conn, 2010)
+
 indi_c.6 <- function(conn, ano, multi = 100){
 
   categorias <- c(

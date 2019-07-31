@@ -1,4 +1,16 @@
-# Taxa de mortalidade específica por diabete melito - C.12
+#'
+#' Taxa de mortalidade específica por diabete melito - C.12
+#'
+#' Follows the RIPSA 2012 card \url{http://fichas.ripsa.org.br/2012/c-12}
+#'
+#' @param conn Connection object created with \code{\link{pcdas_connect}}.
+#' @param ano numeric. Year.
+#' @param multi Indicator multiplier. Defaults to RIPSA recommendation.
+#'
+#' @return A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and the calculated indicator.
+#' @examples
+#' c.12 <- indi_c.12(conn, 2010)
+
 indi_c.12 <- function(conn, ano, multi = 100000){
 
   categorias <- c(

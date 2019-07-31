@@ -1,3 +1,31 @@
+#' Get mortality data for municipalities
+#'
+#' This function retrieves mortality data for all Brazilian municipalities from PCDaS ElasticSearch cluster for a specified year.
+#'
+#' This function uses raw data from the Sistema de Informações de Mortalidade (SIM) available at the PCDaS ElasticSearch cluster. A documentation about this data can be found at \url{https://bigdata-metadados.icict.fiocruz.br/dataset/sistema-de-informacoes-de-mortalidade-sim}.
+#' The CID-10 codes and name for chapters, group, category and subcategories of basic cause of death can be inspected at the same address above.
+#'
+#' @param conn Connection object created with \code{\link{pcdas_connect}}.
+#' @param ano numeric. Year of death.
+#' @param sexo string. Sex of the deceased. \code{Masculino} for males or \code{Feminino} for females.
+#' @param causabas string. CID-10 code for the basic cause of death.
+#' @param causabas_capitulo string. Chapter of the basic cause of death.
+#' @param causabas_grupo string. Group of the basic cause of death.
+#' @param causabas_categoria string. Category of the basic cause of death.
+#' @param causabas_subcategoria string. Subcategory of the basic cause of death.
+#' @param idade_obito_anos_min numeric. Minimum age of death, in years.
+#' @param idade_obito_anos_max numeric. Maximum age of death, in years.
+#' @param idade_obito_dias_min numeric. Minimum age of death, in days.
+#' @param idade_obito_dias_max numeric. Maximum age of death, in days.
+#'
+#' @return A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and number of deceased (\code{sim}).
+#' @examples
+#' sim <- get_sim_mun(conn = conn, ano = 2010, sexo = "Masculino")
+#' sim <- get_sim_mun(conn = conn, ano = 2010, causabas = "R98")
+#' sim <- get_sim_mun(conn = conn, ano = 2010, causabas_categoria = "O01   Mola hidatiforme")
+#' sim <- get_sim_mun(conn = conn, ano = 2010, idade_obito_anos_min = 0, idade_obito_anos_max = 1)
+#' sim <- get_sim_mun(conn = conn, ano = 2010, idade_obito_dias_min = 0, idade_obito_dias_max = 1)
+
 get_sim_mun <- function(conn, ano,
                         sexo = NULL,
                         causabas = NULL,
@@ -7,8 +35,6 @@ get_sim_mun <- function(conn, ano,
                         causabas_subcategoria = NULL,
                         idade_obito_anos_min = NULL, idade_obito_anos_max = NULL,
                         idade_obito_dias_min = NULL, idade_obito_dias_max = NULL){
-
-  #source("R/agg_sim_mun.R", local = TRUE)
 
   # Queries
 
