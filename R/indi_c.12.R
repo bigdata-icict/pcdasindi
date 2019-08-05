@@ -5,13 +5,14 @@
 #'
 #' @param conn Connection object created with \code{\link{pcdas_connect}}.
 #' @param ano numeric. Year.
+#' @param agg string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".
 #' @param multi Indicator multiplier. Defaults to RIPSA recommendation.
 #'
-#' @return A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and the calculated indicator.
+#' @return A \code{data.frame} containing the calculated indicator for the aggregation level.
 #' @examples
-#' c.12 <- indi_c.12(conn, 2010)
+#' c.12 <- indi_c.12(conn, 2010, "mun")
 
-indi_c.12 <- function(conn, ano, multi = 100000){
+indi_c.12 <- function(conn, ano, agr, multi = 100000){
 
   categorias <- c(
     "E10   Diabetes mellitus insulino-dependente",
@@ -21,23 +22,42 @@ indi_c.12 <- function(conn, ano, multi = 100000){
     "E14   Diabetes mellitus NE"
   )
 
-  sim <- data.frame()
-  sim$cod_mun <- as.character()
+  if(agr == "mun"){
+    join_names <- c("cod_mun", "cod_mun")
+    sim <- data.frame()
+    sim$cod_mun <- as.character()
+  } else if (agr == "uf"){
+    join_names <- c("uf", "uf")
+    sim <- data.frame()
+    sim$uf <- as.character()
+  } else if (agr == "regsaude"){
+    join_names <- c("cod_reg_saude", "cod_reg_saude")
+    sim <- data.frame()
+    sim$cod_reg_saude <- as.character()
+  }
+
+
   for(c in 1:length(categorias)){
-    temp <- get_sim_mun(conn = conn, ano = ano, causabas_categoria = categorias[c])
-    sim <- dplyr::full_join(sim, temp, by = c("cod_mun", "cod_mun"))
+    temp <- get_sim(conn = conn, ano = ano, agr = agr, causabas_categoria = categorias[c])
+    if(nrow(temp) == 0) {
+      next
+    } else {
+      sim <- dplyr::full_join(sim, temp, by = join_names)
+    }
   }
 
   sums <- rowSums(sim[,-1], na.rm = TRUE)
 
-  sim <- data.frame(cod_mun = sim$cod_mun, sim = sums)
-  sim$cod_mun <- as.character(sim$cod_mun)
+  sim <- sim %>% mutate(sim = sums)
+  sim <- sim %>% select(1, length(sim))
 
-  pop <- get_pop_mun(conn = conn, ano = ano)
+  sim[,1] <- as.character(sim[,1])
 
-  df <- dplyr::left_join(sim, pop, by = c("cod_mun", "cod_mun")) %>%
+  pop <- get_pop(conn = conn, ano = ano, agr = agr)
+
+  df <- dplyr::left_join(sim, pop, by = join_names) %>%
     mutate(indi_c.12 = sim/pop*multi) %>%
-    select(cod_mun, indi_c.12)
+    select(1, 4)
 
   return(df)
 }

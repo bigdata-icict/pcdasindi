@@ -1,12 +1,13 @@
 #' Get mortality data for municipalities
 #'
-#' This function retrieves mortality data for all Brazilian municipalities from PCDaS ElasticSearch cluster for a specified year.
+#' This function retrieves mortality data from PCDaS ElasticSearch cluster for a specified year.
 #'
 #' This function uses raw data from the Sistema de Informações de Mortalidade (SIM) available at the PCDaS ElasticSearch cluster. A documentation about this data can be found at \url{https://bigdata-metadados.icict.fiocruz.br/dataset/sistema-de-informacoes-de-mortalidade-sim}.
 #' The CID-10 codes and name for chapters, group, category and subcategories of basic cause of death can be inspected at the same address above.
 #'
 #' @param conn Connection object created with \code{\link{pcdas_connect}}.
 #' @param ano numeric. Year of death.
+#' @param agg string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".
 #' @param sexo string. Sex of the deceased. \code{Masculino} for males or \code{Feminino} for females.
 #' @param causabas string. CID-10 code for the basic cause of death.
 #' @param causabas_capitulo string. Chapter of the basic cause of death.
@@ -18,15 +19,15 @@
 #' @param idade_obito_dias_min numeric. Minimum age of death, in days.
 #' @param idade_obito_dias_max numeric. Maximum age of death, in days.
 #'
-#' @return A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and number of deceased (\code{sim}).
+#' @return A \code{data.frame} containing number of deceased (\code{sim}) for the aggregation level.
 #' @examples
-#' sim <- get_sim_mun(conn = conn, ano = 2010, sexo = "Masculino")
-#' sim <- get_sim_mun(conn = conn, ano = 2010, causabas = "R98")
-#' sim <- get_sim_mun(conn = conn, ano = 2010, causabas_categoria = "O01   Mola hidatiforme")
-#' sim <- get_sim_mun(conn = conn, ano = 2010, idade_obito_anos_min = 0, idade_obito_anos_max = 1)
-#' sim <- get_sim_mun(conn = conn, ano = 2010, idade_obito_dias_min = 0, idade_obito_dias_max = 1)
+#' sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", sexo = "Masculino")
+#' sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", causabas = "R98")
+#' sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", causabas_categoria = "O01   Mola hidatiforme")
+#' sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", idade_obito_anos_min = 0, idade_obito_anos_max = 1)
+#' sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", idade_obito_dias_min = 0, idade_obito_dias_max = 1)
 
-get_sim_mun <- function(conn, ano,
+get_sim <- function(conn, ano, agr,
                         sexo = NULL,
                         causabas = NULL,
                         causabas_capitulo = NULL,
@@ -83,10 +84,23 @@ get_sim_mun <- function(conn, ano,
   query <- paste0(q_year, q_sexo, q_causabas, q_causabas_capitulo, q_causabas_grupo, q_causabas_categoria, q_causabas_subcategoria, q_idade_obito_anos, q_idade_obito_dias)
 
 
+
+  if(agr == "mun"){
+    q_body <- agg_sim_mun
+    df_names <- c("cod_mun", "sim")
+  } else if (agr == "uf"){
+    q_body <- agg_sim_uf
+    df_names <- c("uf", "sim")
+  } else if (agr == "regsaude"){
+    q_body <- agg_sim_regsaude
+    df_names <- c("cod_reg_saude", "sim")
+  }
+
+
   # Request from ElasticSearch
 
   sim <- elastic::Search(conn, index="datasus-sim-dss",
-                    body = agg_sim_mun,
+                    body = q_body,
                     q = query,
                     asdf = TRUE)
 
@@ -95,7 +109,7 @@ get_sim_mun <- function(conn, ano,
     sim <- data.frame(cod_mun = as.character(), sim = as.double()) # Empty data frame
     sim$cod_mun <- as.character()
   } else {
-    names(sim) <- c("cod_mun", "sim")
+    names(sim) <- df_names
   }
 
   return(sim)

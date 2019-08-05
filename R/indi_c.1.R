@@ -5,20 +5,29 @@
 #'
 #' @param conn Connection object created with \code{\link{pcdas_connect}}.
 #' @param ano numeric. Year.
+#' @param agg string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".
 #' @param multi Indicator multiplier. Defaults to RIPSA recommendation.
 #'
-#' @return A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and the calculated indicator.
+#' @return A \code{data.frame} containing the calculated indicator for the aggregation level.
 #' @examples
-#' c.1 <- indi_c.1(conn = conn, ano = 2010)
+#' c.1 <- indi_c.1(conn = conn, ano = 2010, agr = "mun")
 
-indi_c.1 <- function(conn, ano, multi = 1000){
+indi_c.1 <- function(conn, ano, agr, multi = 1000){
 
-  sim <- get_sim_mun(conn = conn, ano = ano, idade_obito_anos_min = 0, idade_obito_anos_max = 1)
-  sinasc <- get_sinasc_mun(conn = conn, ano = ano)
+  sim <- get_sim(conn = conn, ano = ano, agr = agr, idade_obito_anos_min = 0, idade_obito_anos_max = 1)
+  sinasc <- get_sinasc(conn = conn, ano = ano, agr = agr)
 
-  df <- dplyr::left_join(sim, sinasc, by = c("cod_mun", "cod_mun")) %>%
+  if(agr == "mun"){
+    join_names <- c("cod_mun", "cod_mun")
+  } else if (agr == "uf"){
+    join_names <- c("uf", "uf")
+  } else if (agr == "regsaude"){
+    join_names <- c("cod_reg_saude", "cod_reg_saude")
+  }
+
+  df <- dplyr::left_join(sim, sinasc, by = join_names) %>%
     mutate(indi_c.1 = sim/sinasc*multi) %>%
-    select(cod_mun, indi_c.1)
+    select(1, 3)
 
   return(df)
 }

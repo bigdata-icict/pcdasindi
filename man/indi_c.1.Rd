@@ -4,7 +4,7 @@
 \alias{indi_c.1}
 \title{Taxa de mortalidade infantil - C.1}
 \usage{
-indi_c.1(conn, ano, multi = 1000)
+indi_c.1(conn, ano, agr, multi = 1000)
 }
 \arguments{
 \item{conn}{Connection object created with \code{\link{pcdas_connect}}.}
@@ -12,13 +12,15 @@ indi_c.1(conn, ano, multi = 1000)
 \item{ano}{numeric. Year.}
 
 \item{multi}{Indicator multiplier. Defaults to RIPSA recommendation.}
+
+\item{agg}{string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".}
 }
 \value{
-A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and the calculated indicator.
+A \code{data.frame} containing the calculated indicator for the aggregation level.
 }
 \description{
 Follows the RIPSA 2012 card \url{http://fichas.ripsa.org.br/2012/c-1}
 }
 \examples{
-c.1 <- indi_c.1(conn = conn, ano = 2010)
+c.1 <- indi_c.1(conn = conn, ano = 2010, agr = "mun")
 }
