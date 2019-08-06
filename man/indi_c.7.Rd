@@ -4,21 +4,23 @@
 \alias{indi_c.7}
 \title{Proporção de óbitos por infecção respiratória aguda em menores de 5 anos de idade - C.7}
 \usage{
-indi_c.7(conn, ano, multi = 100)
+indi_c.7(conn, ano, agr, multi = 100)
 }
 \arguments{
 \item{conn}{Connection object created with \code{\link{pcdas_connect}}.}
 
 \item{ano}{numeric. Year.}
 
+\item{agr}{string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".}
+
 \item{multi}{Indicator multiplier. Defaults to RIPSA recommendation.}
 }
 \value{
-A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and the calculated indicator.
+A \code{data.frame} containing the calculated indicator for the aggregation level.
 }
 \description{
 Follows the RIPSA 2012 card \url{http://fichas.ripsa.org.br/2012/c-7}
 }
 \examples{
-c.7 <- indi_c.7(conn, 2010)
+c.7 <- indi_c.7(conn, 2010, "mun")
 }

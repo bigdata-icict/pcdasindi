@@ -27,7 +27,7 @@ indi_c.2 <- function(conn, ano, agr, multi = 1000){
 
   df <- dplyr::left_join(sim, sinasc, by = join_names) %>%
     mutate(indi_c.2 = sim/sinasc*multi) %>%
-    select(1, 3)
+    select(1, 4)
 
   return(df)
 }

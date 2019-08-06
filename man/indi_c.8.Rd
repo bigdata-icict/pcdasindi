@@ -4,21 +4,23 @@
 \alias{indi_c.8}
 \title{Taxa de mortalidade específica por doenças do aparelho circulatório - C.8}
 \usage{
-indi_c.8(conn, ano, multi = 1e+05)
+indi_c.8(conn, ano, agr, multi = 1e+05)
 }
 \arguments{
 \item{conn}{Connection object created with \code{\link{pcdas_connect}}.}
 
 \item{ano}{numeric. Year.}
 
+\item{agr}{string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".}
+
 \item{multi}{Indicator multiplier. Defaults to RIPSA recommendation.}
 }
 \value{
-A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and the calculated indicator.
+A \code{data.frame} containing the calculated indicator for the aggregation level.
 }
 \description{
 Follows the RIPSA 2012 card \url{http://fichas.ripsa.org.br/2012/c-8}
 }
 \examples{
-c.8 <- indi_c.8(conn, 2010)
+c.8 <- indi_c.8(conn, 2010, "mun")
 }

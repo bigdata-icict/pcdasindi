@@ -11,9 +11,9 @@ indi_c.15(conn, ano, agr, multi = 1000)
 
 \item{ano}{numeric. Year.}
 
-\item{multi}{Indicator multiplier. Defaults to RIPSA recommendation.}
+\item{agr}{string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".}
 
-\item{agg}{string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".}
+\item{multi}{Indicator multiplier. Defaults to RIPSA recommendation.}
 }
 \value{
 A \code{data.frame} containing the calculated indicator for the aggregation level.
