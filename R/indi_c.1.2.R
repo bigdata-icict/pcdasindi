@@ -5,7 +5,7 @@
 #'
 #' @param conn Connection object created with \code{\link{pcdas_connect}}.
 #' @param ano numeric. Year.
-#' @param agg string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".
+#' @param agr string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".
 #' @param multi Indicator multiplier. Defaults to RIPSA recommendation.
 #'
 #' @return A \code{data.frame} containing the calculated indicator for the aggregation level.
@@ -27,7 +27,7 @@ indi_c.1.2 <- function(conn, ano, agr, multi = 1000){
 
   df <- dplyr::left_join(sim, sinasc, by = join_names) %>%
     mutate(indi_c.1.2 = sim/sinasc*multi) %>%
-    select(1, 3)
+    select(1, 4)
 
   return(df)
 }
