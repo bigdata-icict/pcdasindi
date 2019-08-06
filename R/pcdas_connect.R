@@ -14,7 +14,7 @@
 pcdas_connect <- function(host = "dados-pcdas.icict.fiocruz.br",
                           port = 443,
                           transport_schema = "https",
-                          user, pwd = getPass()){
+                          user, pwd = getPass(msg = "PCDaS password")){
   conn <- elastic::connect(
     host = host,
     port = port,
