@@ -6,7 +6,7 @@
 #' @param port Port number.
 #' @param transport_schema Only https connection is supported.
 #' @param user Username at PCDaS
-#' @param pwd Password at PCDaS
+#' @param pwd Password at PCDaS, retrieved using a interactive dialog.
 #' @return A connection instruction to the PCDaS ElasticSearch cluster.
 #' @examples
 #' pcdas_connect(user = "your_username", pwd = "your_password")
@@ -14,7 +14,7 @@
 pcdas_connect <- function(host = "dados-pcdas.icict.fiocruz.br",
                           port = 443,
                           transport_schema = "https",
-                          user, pwd){
+                          user, pwd = getPass()){
   conn <- elastic::connect(
     host = host,
     port = port,

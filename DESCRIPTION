@@ -12,5 +12,6 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     dplyr,
-    elastic
+    elastic,
+    getPass  
 RoxygenNote: 6.1.1
