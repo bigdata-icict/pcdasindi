@@ -5,7 +5,7 @@
 \title{Creates a connection to the PCDaS ElasticSearch cluster}
 \usage{
 pcdas_connect(host = "dados-pcdas.icict.fiocruz.br", port = 443,
-  transport_schema = "https", user, pwd = getPass(msg =
+  transport_schema = "https", user, pwd = getPass::getPass(msg =
   "PCDaS password"))
 }
 \arguments{

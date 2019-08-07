@@ -1,4 +1,4 @@
-#' Get population
+#' Get population from SINASC
 #'
 #' This function retrieves population data from PCDaS ElasticSearch cluster for a specified year.
 #'

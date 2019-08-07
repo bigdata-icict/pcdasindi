@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_pop.R
 \name{get_pop}
 \alias{get_pop}
-\title{Get population}
+\title{Get population from SINASC}
 \usage{
 get_pop(conn, ano, agr)
 }

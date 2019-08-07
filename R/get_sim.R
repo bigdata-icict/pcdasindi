@@ -1,4 +1,4 @@
-#' Get mortality data for municipalities
+#' Get mortality data from SIM
 #'
 #' This function retrieves mortality data from PCDaS ElasticSearch cluster for a specified year.
 #'
@@ -21,11 +21,11 @@
 #'
 #' @return A \code{data.frame} containing number of deceased (\code{sim}) for the aggregation level.
 #' @examples
-#' sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", sexo = "Masculino")
-#' sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", causabas = "R98")
-#' sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", causabas_categoria = "O01   Mola hidatiforme")
-#' sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", idade_obito_anos_min = 0, idade_obito_anos_max = 1)
-#' sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", idade_obito_dias_min = 0, idade_obito_dias_max = 1)
+#' sim <- get_sim(conn = conn, ano = 2010, agr = "mun", sexo = "Masculino")
+#' sim <- get_sim(conn = conn, ano = 2010, agr = "mun", causabas = "R98")
+#' sim <- get_sim(conn = conn, ano = 2010, agr = "mun", causabas_categoria = "O01   Mola hidatiforme")
+#' sim <- get_sim(conn = conn, ano = 2010, agr = "mun", idade_obito_anos_min = 0, idade_obito_anos_max = 1)
+#' sim <- get_sim(conn = conn, ano = 2010, agr = "mun", idade_obito_dias_min = 0, idade_obito_dias_max = 1)
 
 get_sim <- function(conn, ano, agr,
                         sexo = NULL,

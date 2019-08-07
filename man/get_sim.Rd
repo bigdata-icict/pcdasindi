@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_sim.R
 \name{get_sim}
 \alias{get_sim}
-\title{Get mortality data for municipalities}
+\title{Get mortality data from SIM}
 \usage{
 get_sim(conn, ano, agr, sexo = NULL, causabas = NULL,
   causabas_capitulo = NULL, causabas_grupo = NULL,
@@ -48,9 +48,9 @@ This function uses raw data from the Sistema de Informações de Mortalidade (SI
 The CID-10 codes and name for chapters, group, category and subcategories of basic cause of death can be inspected at the same address above.
 }
 \examples{
-sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", sexo = "Masculino")
-sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", causabas = "R98")
-sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", causabas_categoria = "O01   Mola hidatiforme")
-sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", idade_obito_anos_min = 0, idade_obito_anos_max = 1)
-sim <- get_sim_mun(conn = conn, ano = 2010, agr = "mun", idade_obito_dias_min = 0, idade_obito_dias_max = 1)
+sim <- get_sim(conn = conn, ano = 2010, agr = "mun", sexo = "Masculino")
+sim <- get_sim(conn = conn, ano = 2010, agr = "mun", causabas = "R98")
+sim <- get_sim(conn = conn, ano = 2010, agr = "mun", causabas_categoria = "O01   Mola hidatiforme")
+sim <- get_sim(conn = conn, ano = 2010, agr = "mun", idade_obito_anos_min = 0, idade_obito_anos_max = 1)
+sim <- get_sim(conn = conn, ano = 2010, agr = "mun", idade_obito_dias_min = 0, idade_obito_dias_max = 1)
 }
