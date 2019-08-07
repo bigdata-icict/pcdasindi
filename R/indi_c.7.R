@@ -36,37 +36,9 @@ indi_c.7 <- function(conn, ano, agr, multi = 100){
     "J22   Infecc agudas NE das vias aereas infer"
   )
 
-  if(agr == "mun"){
-    join_names <- c("cod_mun", "cod_mun")
-    sim <- data.frame()
-    sim$cod_mun <- as.character()
-  } else if (agr == "uf"){
-    join_names <- c("uf", "uf")
-    sim <- data.frame()
-    sim$uf <- as.character()
-  } else if (agr == "regsaude"){
-    join_names <- c("cod_reg_saude", "cod_reg_saude")
-    sim <- data.frame()
-    sim$cod_reg_saude <- as.character()
-  }
+  join_names <- join_names(agr = agr)
 
-
-  for(c in 1:length(categorias)){
-    temp <- get_sim(conn = conn, ano = ano, agr = agr, causabas_categoria = categorias[c])
-    if(nrow(temp) == 0) {
-      next
-    } else {
-      sim <- dplyr::full_join(sim, temp, by = join_names)
-    }
-  }
-
-  sums <- rowSums(sim[,-1], na.rm = TRUE)
-
-  sim <- sim %>% mutate(sim = sums)
-  sim <- sim %>% select(1, length(sim))
-
-  sim[,1] <- as.character(sim[,1])
-
+  sim <- get_sim_categorias(conn = conn, ano = ano, agr = agr, causabas_categorias = categorias)
   sim2 <- get_sim(conn = conn, ano = ano, agr = agr, idade_obito_anos_min = 0, idade_obito_anos_max = 5, causabas_capitulo = "XVIII.Sint sinais e achad anorm ex clín e laborat")
 
   df <- dplyr::left_join(sim, sim2, by = join_names) %>%
