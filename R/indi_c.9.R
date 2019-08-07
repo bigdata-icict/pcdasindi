@@ -14,13 +14,7 @@
 
 indi_c.9 <- function(conn, ano, agr, multi = 100000){
 
-  if(agr == "mun"){
-    join_names <- c("cod_mun", "cod_mun")
-  } else if (agr == "uf"){
-    join_names <- c("uf", "uf")
-  } else if (agr == "regsaude"){
-    join_names <- c("cod_reg_saude", "cod_reg_saude")
-  }
+  join_names <- join_names(agr = agr)
 
   sim <- get_sim(conn = conn, ano = ano, agr = agr, causabas_capitulo = "XX.  Causas externas de morbidade e mortalidade")
   pop <- get_pop(conn = conn, ano = ano, agr = agr)

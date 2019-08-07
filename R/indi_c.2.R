@@ -17,13 +17,7 @@ indi_c.2 <- function(conn, ano, agr, multi = 1000){
   sim <- get_sim(conn = conn, ano = ano, agr = agr, idade_obito_dias_min = 0, idade_obito_dias_max = 6)
   sinasc <- get_sinasc(conn = conn, ano = ano, agr = agr)
 
-  if(agr == "mun"){
-    join_names <- c("cod_mun", "cod_mun")
-  } else if (agr == "uf"){
-    join_names <- c("uf", "uf")
-  } else if (agr == "regsaude"){
-    join_names <- c("cod_reg_saude", "cod_reg_saude")
-  }
+  join_names <- join_names(agr = agr)
 
   df <- dplyr::left_join(sim, sinasc, by = join_names) %>%
     mutate(indi_c.2 = sim/sinasc*multi) %>%

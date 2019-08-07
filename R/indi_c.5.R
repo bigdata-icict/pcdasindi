@@ -17,13 +17,7 @@ indi_c.5 <- function(conn, ano, agr, multi = 100){
   sim <- get_sim(conn = conn, ano = ano, agr = agr, causabas_capitulo = "XVIII.Sint sinais e achad anorm ex clín e laborat")
   sim2 <- get_sim(conn = conn, ano = ano, agr = agr)
 
-  if(agr == "mun"){
-    join_names <- c("cod_mun", "cod_mun")
-  } else if (agr == "uf"){
-    join_names <- c("uf", "uf")
-  } else if (agr == "regsaude"){
-    join_names <- c("cod_reg_saude", "cod_reg_saude")
-  }
+  join_names <- join_names(agr = agr)
 
   df <- dplyr::left_join(sim, sim2, by = join_names) %>%
     mutate(indi_c.5 = sim.x/sim.y*multi) %>%
