@@ -1,10 +1,10 @@
 Package: pcdasindi
 Type: Package
-Title: Calculates health indicators for Brazilian municipalities
+Title: Calculates health indicators to Brazil
 Version: 0.1.0
 Author: Raphael de Freitas Saldanha
 Maintainer: Raphael de Freitas Saldanha <raphael.saldanha@icict.fiocruz.br>
-Description: This packages calculates health indicators to Brazil following the RIPSA 2012 methodology applied to municipalities. 
+Description: This packages calculates health indicators to Brazil following the RIPSA 2012 methodology applied to municipalities, states (UF) and health regions. 
     It uses raw data from DataSUS (MS) stored in the Plataforma de Ciência de Dados aplicada à Saúde (PCDaS), a project from Fundação Oswaldo Cruz (Fiocruz).
     A username and password from PCDaS are needed in order to use this package and can be freely obtained at https://bigdata.icict.fiocruz.br
 License: MIT

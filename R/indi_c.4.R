@@ -5,13 +5,14 @@
 #'
 #' @param conn Connection object created with \code{\link{pcdas_connect}}.
 #' @param ano numeric. Year.
+#' @param agr string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".
 #' @param multi Indicator multiplier. Defaults to RIPSA recommendation.
 #'
-#' @return A \code{data.frame} containing the municipalities IBGE codes (\code{cod_mun}) and the calculated indicator.
+#' @return A \code{data.frame} containing the calculated indicator for the aggregation level.
 #' @examples
-#' c.4 <- indi_c.4(conn, 2010)
+#' c.4 <- indi_c.4(conn, 2010, "mun")
 
-indi_c.4 <- function(conn, ano, multi = 100){
+indi_c.4 <- function(conn, ano, agr, multi = 100){
 
   capitulos <- c(
     "I.   Algumas doenças infecciosas e parasitárias",
@@ -34,27 +35,19 @@ indi_c.4 <- function(conn, ano, multi = 100){
     "XVII.Malf cong deformid e anomalias cromossômicas"
   )
 
-
-  sim <- data.frame()
-  sim$cod_mun <- as.character()
-  for(c in 1:length(capitulos)){
-    temp <- get_sim_mun(conn = conn, ano = ano, causabas_capitulo =  capitulos[c])
-    sim <- dplyr::full_join(sim, temp, by = c("cod_mun", "cod_mun"))
-  }
-
-  sums <- rowSums(sim[,8:ncol(sim)], na.rm = TRUE)
-  sim$sums <- sums
-
+  sim <- get_sim_capitulos(conn = conn, ano = ano, agr = agr, causabas_capitulos = capitulos)
   sim <- sim %>%
-    dplyr::select(cod_mun, CapI = sim.x, CapII = sim.y, CapIX = sim.x.x, CapX = sim.y.y, CapXVI = sim.x.x.x, CapXX = sim.y.y.y.y, DemaisCausasMalDefinidas = sums)
+    dplyr::select(1, CapI = sim.x, CapII = sim.y, CapIX = sim.x.x, CapX = sim.y.y, CapXVI = sim.x.x.x, CapXX = sim.y.y.y.y, DemaisCausasMalDefinidas = sums)
 
-  pop <- get_sim_mun(conn = conn, ano = ano)
-  not_pop <- get_sim_mun(conn = conn, ano = ano, causabas_capitulo = "XVIII.Sint sinais e achad anorm ex clín e laborat")
-  pop <- dplyr::full_join(pop, not_pop, by = c("cod_mun", "cod_mun")) %>%
+  join_names <- join_names(agr = agr)
+
+  pop <- get_sim(conn = conn, ano = ano, agr = agr)
+  not_pop <- get_sim(conn = conn, ano = ano, agr = agr, causabas_capitulo = "XVIII.Sint sinais e achad anorm ex clín e laborat")
+  pop <- dplyr::full_join(pop, not_pop, by = join_names) %>%
     mutate(pop = sim.x - sim.y) %>%
-    select(cod_mun, pop)
+    select(1, pop)
 
-  df <- dplyr::left_join(sim, pop, by = c("cod_mun", "cod_mun")) %>%
+  df <- dplyr::left_join(sim, pop, by = join_names) %>%
     mutate(CapI = CapI/pop*multi,
            CapII = CapII/pop*multi,
            CapIX = CapIX/pop*multi,
