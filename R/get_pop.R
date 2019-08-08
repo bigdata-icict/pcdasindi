@@ -1,4 +1,4 @@
-#' Get population from SINASC
+#' Get population from SVS
 #'
 #' This function retrieves population data from PCDaS ElasticSearch cluster for a specified year.
 #'
@@ -24,19 +24,15 @@ get_pop <- function(conn, ano, agr){
     df_names <- c("cod_reg_saude", "pop")
   }
 
-  pop <- try(elastic::Search(conn, index="svs-pop-dss",
+  pop <- elastic::Search(conn, index="svs-pop-dss",
                     body = q_body,
                     q = query,
-                    asdf = TRUE))
-  if(class(pop) == "try-error") {
-    message("It was not posible to connect to the PCDaS ElasticSearch cluster.")
-    message("Your username or password may be incorrect or the cluster is offline.")
-    message("Please check your credentials or try again later.")
-  } else {
-    pop <- pop$aggregations$a1$buckets
-    pop$doc_count <- NULL
-    names(pop) <- df_names
+                    asdf = TRUE)
 
-    return(pop)
-  }
+  pop <- pop$aggregations$a1$buckets
+  pop$doc_count <- NULL
+  names(pop) <- df_names
+
+  return(pop)
+
 }

@@ -73,12 +73,12 @@ get_sim <- function(conn, ano, agr,
 
   q_idade_obito_anos <- NULL
   if(!is.null(idade_obito_anos_min)){
-    q_idade_obito_anos <- paste0(" AND " ,"idade_obito_calculado:", idade_obito_anos_min, " to ", idade_obito_anos_max)
+    q_idade_obito_anos <- paste0(" AND " ,"idade_obito_calculado:[", idade_obito_anos_min, " TO ", idade_obito_anos_max, "]")
   }
 
   q_idade_obito_dias <- NULL
   if(!is.null(idade_obito_dias_min)){
-    q_idade_obito_dias <- paste0(" AND " ,"idade_obito_dias:", idade_obito_dias_min, " to ", idade_obito_dias_max)
+    q_idade_obito_dias <- paste0(" AND " ,"idade_obito_dias:[", idade_obito_dias_min, " TO ", idade_obito_dias_max, "]")
   }
 
   query <- paste0(q_year, q_sexo, q_causabas, q_causabas_capitulo, q_causabas_grupo, q_causabas_categoria, q_causabas_subcategoria, q_idade_obito_anos, q_idade_obito_dias)
