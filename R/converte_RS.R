@@ -10,12 +10,15 @@ converte_RS <- function(df)
 {
 url <- "https://raw.githubusercontent.com/caio-peixoto/principal/master/Lista_Cirs.csv"
 download.file(url, destfile = "Lista_Cirs.csv")
-RS <- fread("Lista_Cirs.csv", sep=";", encoding="UTF-8", colClasses = ("character"))
+RS <- fread("Lista_Cirs.csv", sep=";", encoding="UTF-8", select=c(1:2,6), colClasses = ("character"))
 
-names(RS) <- c("cod_mun","cod_RS","cod_UF","sigla_UF","nome_UF","nome_RS","nome_mun")
 
-df$cod_RS <- RS$cod_RS[ (df$cod_mun == RS$cod_mun)]
-df$nome_RS <- RS$nome_RS[ (df$cod_mun == RS$cod_mun)]
+names(RS) <- c("cod_mun","cod_RS","nome_RS")
+
+# df$cod_RS <- RS$cod_RS[ (df$cod_mun == RS$cod_mun)]
+# df$nome_RS <- RS$nome_RS[ (df$cod_mun == RS$cod_mun)]
+    
+df <- merge(df, RS, by=c("cod_mun"))    
 
 unlink("Lista_Cirs.csv")
 rm(RS)
