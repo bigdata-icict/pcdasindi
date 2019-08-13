@@ -114,3 +114,4 @@ get_sim <- function(conn, ano, agr,
 
   return(sim)
 }
+#dim(sim) > 5570
