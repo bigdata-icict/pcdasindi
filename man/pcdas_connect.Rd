@@ -4,9 +4,13 @@
 \alias{pcdas_connect}
 \title{Creates a connection to the PCDaS ElasticSearch cluster}
 \usage{
-pcdas_connect(host = "dados-pcdas.icict.fiocruz.br", port = 443,
-  transport_schema = "https", user, pwd = getPass::getPass(msg =
-  "PCDaS password"))
+pcdas_connect(
+  host = "dados-pcdas.icict.fiocruz.br",
+  port = 443,
+  transport_schema = "https",
+  user,
+  pwd = getPass::getPass(msg = "PCDaS password")
+)
 }
 \arguments{
 \item{host}{ElasticSearch cluster address from PCDaS.}

@@ -4,11 +4,21 @@
 \alias{get_sim}
 \title{Get mortality data from SIM}
 \usage{
-get_sim(conn, ano, agr, sexo = NULL, causabas = NULL,
-  causabas_capitulo = NULL, causabas_grupo = NULL,
-  causabas_categoria = NULL, causabas_subcategoria = NULL,
-  idade_obito_anos_min = NULL, idade_obito_anos_max = NULL,
-  idade_obito_dias_min = NULL, idade_obito_dias_max = NULL)
+get_sim(
+  conn,
+  ano,
+  agr,
+  sexo = NULL,
+  causabas = NULL,
+  causabas_capitulo = NULL,
+  causabas_grupo = NULL,
+  causabas_categoria = NULL,
+  causabas_subcategoria = NULL,
+  idade_obito_anos_min = NULL,
+  idade_obito_anos_max = NULL,
+  idade_obito_dias_min = NULL,
+  idade_obito_dias_max = NULL
+)
 }
 \arguments{
 \item{conn}{Connection object created with \code{\link{pcdas_connect}}.}
