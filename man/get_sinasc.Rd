@@ -4,12 +4,14 @@
 \alias{get_sinasc}
 \title{Get live births data for municipalities}
 \usage{
-get_sinasc(conn, ano, agr)
+get_sinasc(conn, agr, ano = NULL, lucene_query = NULL)
 }
 \arguments{
 \item{conn}{Connection object created with \code{\link{pcdas_connect}}.}
 
 \item{ano}{numeric. Year of birth.}
+
+\item{lucene_query}{string. A more complex lucene query can be presented here. The string must be informed using sigle quotes. If used, all other filters will be ignored.}
 
 \item{agg}{string. Agregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".}
 }

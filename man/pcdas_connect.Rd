@@ -9,7 +9,8 @@ pcdas_connect(
   port = 443,
   transport_schema = "https",
   user,
-  pwd = getPass::getPass(msg = "PCDaS password")
+  pwd_mode = "dialog",
+  pwd_txt
 )
 }
 \arguments{
@@ -21,7 +22,9 @@ pcdas_connect(
 
 \item{user}{Username at PCDaS}
 
-\item{pwd}{Password at PCDaS, retrieved using a interactive dialog.}
+\item{pwd_mode}{"dialog" will use an interactive dialog asking for the password. Use "text" to inform the password with 'pwd_txt' (usefull case for automations).}
+
+\item{pwd_txt}{Password in plain text.}
 }
 \value{
 A connection instruction to the PCDaS ElasticSearch cluster.

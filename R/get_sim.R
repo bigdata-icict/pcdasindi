@@ -18,6 +18,7 @@
 #' @param idade_obito_anos_max numeric. Maximum age of death, in years.
 #' @param idade_obito_dias_min numeric. Minimum age of death, in days.
 #' @param idade_obito_dias_max numeric. Maximum age of death, in days.
+#' @param lucene_query string. A more complex lucene query can be presented here. The string must be informed using sigle quotes. If used, all other filters will be ignored.
 #'
 #' @return A \code{data.frame} containing number of deceased (\code{sim}) for the aggregation level.
 #' @examples
@@ -27,7 +28,8 @@
 #' sim <- get_sim(conn = conn, ano = 2010, agr = "mun", idade_obito_anos_min = 0, idade_obito_anos_max = 1)
 #' sim <- get_sim(conn = conn, ano = 2010, agr = "mun", idade_obito_dias_min = 0, idade_obito_dias_max = 1)
 
-get_sim <- function(conn, ano, agr,
+get_sim <- function(conn, agr,
+                        ano = NULL,
                         sexo = NULL,
                         causabas = NULL,
                         causabas_capitulo = NULL,
@@ -35,7 +37,8 @@ get_sim <- function(conn, ano, agr,
                         causabas_categoria = NULL,
                         causabas_subcategoria = NULL,
                         idade_obito_anos_min = NULL, idade_obito_anos_max = NULL,
-                        idade_obito_dias_min = NULL, idade_obito_dias_max = NULL){
+                        idade_obito_dias_min = NULL, idade_obito_dias_max = NULL,
+                        lucene_query = NULL){
 
   # Queries
 
@@ -81,7 +84,16 @@ get_sim <- function(conn, ano, agr,
     q_idade_obito_dias <- paste0(" AND " ,"idade_obito_dias:[", idade_obito_dias_min, " TO ", idade_obito_dias_max, "]")
   }
 
-  query <- paste0(q_year, q_sexo, q_causabas, q_causabas_capitulo, q_causabas_grupo, q_causabas_categoria, q_causabas_subcategoria, q_idade_obito_anos, q_idade_obito_dias)
+  q_lucene_query <- NULL
+  if(!is.null(lucene_query)){
+    q_lucene_query <- lucene_query
+  }
+
+  if(is.null(q_lucene_query)){
+    query <- paste0(q_year, q_sexo, q_causabas, q_causabas_capitulo, q_causabas_grupo, q_causabas_categoria, q_causabas_subcategoria, q_idade_obito_anos, q_idade_obito_dias)
+  } else {
+    query <- q_lucene_query
+  }
 
 
 

@@ -17,6 +17,7 @@
 #' @param idade_anos_min numeric. Minimum age of patient, in years.
 #' @param idade_anos_max numeric. Maximum age of patient, in years.
 #' @param proced_real numeric. Numeric code of the realized hospital procedure.
+#' @param lucene_query string. A more complex lucene query can be presented here. The string must be informed using sigle quotes. If used, all other filters will be ignored.
 
 #'
 #' @return A \code{data.frame} containing number of hospital admission authorizations (\code{sih}) for the aggregation level.
@@ -25,8 +26,10 @@
 #' sim <- get_sih(conn = conn, ano = 2010, agr = "mun", diag_princ = "J448")
 #' sim <- get_sih(conn = conn, ano = 2010, agr = "mun", idade_anos_min = 0, idade_anos_max = 10)
 #' sim <- get_sih(conn = conn, ano = 2010, agr = "mun", proced_real = 310010039)
+#' sih <- get_sih(conn = conn, agr = "mun", lucene_query = 'ano_internacao: 2010 AND def_raca_cor: "Preta" or "Branca"')
 
-get_sih <- function(conn, ano, agr,
+get_sih <- function(conn, agr,
+                        ano = NULL,
                         sexo = NULL,
                         diag_princ = NULL,
                         diag_princ_capitulo = NULL,
@@ -34,7 +37,8 @@ get_sih <- function(conn, ano, agr,
                         diag_princ_categoria = NULL,
                         diag_princ_subcategoria = NULL,
                         idade_anos_min = NULL, idade_anos_max = NULL,
-                        proced_real = NULL){
+                        proced_real = NULL,
+                        lucene_query = NULL){
 
   # Queries
 
@@ -80,10 +84,17 @@ get_sih <- function(conn, ano, agr,
     q_proced_real <- paste0(" AND " ,"PROC_REA:", proced_real)
   }
 
+  q_lucene_query <- NULL
+  if(!is.null(lucene_query)){
+    q_lucene_query <- lucene_query
+  }
 
 
-  query <- paste0(q_year, q_sexo, q_diag_princ, q_diag_princ_capitulo, q_diag_princ_grupo, q_diag_princ_categoria, q_diag_princ_subcategoria, q_idade_anos, q_proced_real)
-
+  if(is.null(q_lucene_query)){
+    query <- paste0(q_year, q_sexo, q_diag_princ, q_diag_princ_capitulo, q_diag_princ_grupo, q_diag_princ_categoria, q_diag_princ_subcategoria, q_idade_anos, q_proced_real)
+  } else {
+    query <- q_lucene_query
+  }
 
 
   if(agr == "mun"){

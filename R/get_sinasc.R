@@ -7,14 +7,26 @@
 #' @param conn Connection object created with \code{\link{pcdas_connect}}.
 #' @param ano numeric. Year of birth.
 #' @param agg string. Agregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".
+#' @param lucene_query string. A more complex lucene query can be presented here. The string must be informed using sigle quotes. If used, all other filters will be ignored.
 #'
 #' @return A \code{data.frame} containing number of live births (\code{sinasc}) for the aggregation level.
 #' @examples
 #' sinasc <- get_sinasc_mun(conn = conn, ano = 2010, agr = "mun")
 
-get_sinasc <- function(conn, ano, agr){
+get_sinasc <- function(conn, agr, ano = NULL, lucene_query = NULL){
 
-  query <- paste0("ano_nasc:", ano)
+  q_lucene_query <- NULL
+  if(!is.null(lucene_query)){
+    q_lucene_query <- lucene_query
+  }
+
+  if(is.null(q_lucene_query)){
+    query <- paste0("ano_nasc:", ano)
+  } else {
+    query <- q_lucene_query
+  }
+
+
 
   if(agr == "mun"){
     q_body <- agg_sinasc_mun

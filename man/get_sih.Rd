@@ -6,8 +6,8 @@
 \usage{
 get_sih(
   conn,
-  ano,
   agr,
+  ano = NULL,
   sexo = NULL,
   diag_princ = NULL,
   diag_princ_capitulo = NULL,
@@ -16,7 +16,8 @@ get_sih(
   diag_princ_subcategoria = NULL,
   idade_anos_min = NULL,
   idade_anos_max = NULL,
-  proced_real = NULL
+  proced_real = NULL,
+  lucene_query = NULL
 )
 }
 \arguments{
@@ -42,6 +43,8 @@ get_sih(
 
 \item{proced_real}{numeric. Numeric code of the realized hospital procedure.}
 
+\item{lucene_query}{string. A more complex lucene query can be presented here. The string must be informed using sigle quotes. If used, all other filters will be ignored.}
+
 \item{agg}{string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".}
 }
 \value{
@@ -59,4 +62,5 @@ sim <- get_sih(conn = conn, ano = 2010, agr = "mun", sexo = "Masculino")
 sim <- get_sih(conn = conn, ano = 2010, agr = "mun", diag_princ = "J448")
 sim <- get_sih(conn = conn, ano = 2010, agr = "mun", idade_anos_min = 0, idade_anos_max = 10)
 sim <- get_sih(conn = conn, ano = 2010, agr = "mun", proced_real = 310010039)
+sih <- get_sih(conn = conn, agr = "mun", lucene_query = 'ano_internacao: 2010 AND def_raca_cor: "Preta" or "Branca"')
 }

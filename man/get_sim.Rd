@@ -6,8 +6,8 @@
 \usage{
 get_sim(
   conn,
-  ano,
   agr,
+  ano = NULL,
   sexo = NULL,
   causabas = NULL,
   causabas_capitulo = NULL,
@@ -17,7 +17,8 @@ get_sim(
   idade_obito_anos_min = NULL,
   idade_obito_anos_max = NULL,
   idade_obito_dias_min = NULL,
-  idade_obito_dias_max = NULL
+  idade_obito_dias_max = NULL,
+  lucene_query = NULL
 )
 }
 \arguments{
@@ -44,6 +45,8 @@ get_sim(
 \item{idade_obito_dias_min}{numeric. Minimum age of death, in days.}
 
 \item{idade_obito_dias_max}{numeric. Maximum age of death, in days.}
+
+\item{lucene_query}{string. A more complex lucene query can be presented here. The string must be informed using sigle quotes. If used, all other filters will be ignored.}
 
 \item{agg}{string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".}
 }
