@@ -18,9 +18,9 @@ pcdas_connect(
 
 \item{port}{Port number.}
 
-\item{transport_schema}{Only https connection is supported.}
+\item{transport_schema}{Only 'https' connection is supported.}
 
-\item{user}{Username at PCDaS}
+\item{user}{Username at PCDaS.}
 
 \item{pwd_mode}{"dialog" will use an interactive dialog asking for the password. Use "text" to inform the password with 'pwd_txt' (usefull case for automations).}
 
@@ -34,5 +34,6 @@ This function creates a connection to the ElasticSearch server from the Platafor
 A username and password from PCDaS are needed in order to use this package and can be freely obtained at \url{https://bigdata.icict.fiocruz.br}.
 }
 \examples{
-pcdas_connect(user = "your_username", pwd = "your_password")
+pcdas_connect(user = "your_username")
+pcdas_connect(user = "your_username", pwd_mode = "text", pwd_txt = "your_password")
 }

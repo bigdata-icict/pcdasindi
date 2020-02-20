@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_sih.R
 \name{get_sih}
 \alias{get_sih}
-\title{Get mortality data from SIH}
+\title{Get hospital admissions data from SIH}
 \usage{
 get_sih(
   conn,

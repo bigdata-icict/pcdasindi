@@ -1,4 +1,4 @@
-#' Get mortality data from SIH
+#' Get hospital admissions data from SIH
 #'
 #' This function retrieves hospital admission data from PCDaS ElasticSearch cluster for a specified year.
 #'

@@ -1,4 +1,4 @@
-agg_sih_uf <- '
+agg_cnes_mun <- '
 
 {
   "size": 0,
@@ -8,7 +8,7 @@ agg_sih_uf <- '
   "aggs": {
     "a1": {
       "terms": {
-        "field": "res_uf_SIGLA_UF",
+        "field": "mun_CSAUDCOD",
         "size": 10000
       }
     }
@@ -17,10 +17,7 @@ agg_sih_uf <- '
     "*"
   ],
   "script_fields": {},
-  "docvalue_fields": [
-    "dt_inter",
-    "dt_saida"
-  ],
+  "docvalue_fields": [],
   "query": {
     "bool": {
       "must": [
