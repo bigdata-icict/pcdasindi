@@ -51,7 +51,7 @@ get_sim <- function(conn, agr,
 
   q_causabas <- NULL
   if(!is.null(causabas)){
-    q_causabas <- paste0(" AND " ,"CAUSABAS:\"", causabas, "\"")
+    q_causabas <- paste0(" AND " ,"CAUSABAS:", causabas)
   }
 
   q_causabas_capitulo <- NULL

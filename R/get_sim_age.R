@@ -69,7 +69,7 @@ get_sim_age <- function(conn, ano, agr,
   list_sim <- list(sim_f_ate04, sim_f_de5a9, sim_f_de10a14, sim_f_de15a19, sim_f_de20a24, sim_f_de25a29, sim_f_de30a34, sim_f_de35a39, sim_f_de40a44, sim_f_de45a49, sim_f_de50a54, sim_f_de55a59, sim_f_de60a64, sim_f_de65a69, sim_f_de70a74, sim_f_de75a79, sim_f_de80)
 
   df_fem <- plyr::join_all(dfs = list_sim, type = "full", by = df_names) %>%
-    mutate(sexo = "Feminino") %>%
+    dplyr::mutate(sexo = "Feminino") %>%
     tidyr::gather(faixa, sim, -df_names, -sexo)
 
 
@@ -130,7 +130,7 @@ get_sim_age <- function(conn, ano, agr,
   list_sim <- list(sim_m_ate04, sim_m_de5a9, sim_m_de10a14, sim_m_de15a19, sim_m_de20a24, sim_m_de25a29, sim_m_de30a34, sim_m_de35a39, sim_m_de40a44, sim_m_de45a49, sim_m_de50a54, sim_m_de55a59, sim_m_de60a64, sim_m_de65a69, sim_m_de70a74, sim_m_de75a79, sim_m_de80)
 
   df_masc <- plyr::join_all(dfs = list_sim, type = "full", by = df_names) %>%
-    mutate(sexo = "Masculino") %>%
+    dplyr::mutate(sexo = "Masculino") %>%
     tidyr::gather(faixa, sim, -df_names, -sexo)
 
 

@@ -44,17 +44,17 @@ get_cnes <- function(conn, agr,
 
   q_leitos_hosp <- NULL
   if(!is.null(leitos_hosp)){
-    q_leitos_hosp <- paste0(" AND " ,"LEITHOSP:\"", leitos_hosp, "\"")
+    q_leitos_hosp <- paste0(" AND " ,"LEITHOSP:", leitos_hosp)
   }
 
   q_tipo_unidade <- NULL
   if(!is.null(tipo_unidade)){
-    q_tipo_unidade <- paste0(" AND " ,"def_tp_unid:\"", tipo_unidade, "\"")
+    q_tipo_unidade <- paste0(" AND " ,"def_tp_unid:", tipo_unidade)
   }
 
   q_esfera_admin <- NULL
   if(!is.null(esfera_admin)){
-    q_esfera_admin <- paste0(" AND " ,"def_esfera_a:\"", esfera_admin, "\"")
+    q_esfera_admin <- paste0(" AND " ,"def_esfera_a:", esfera_admin)
   }
 
 
