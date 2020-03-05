@@ -39,7 +39,7 @@ get_sinasc <- function(conn, agr, ano = NULL, lucene_query = NULL){
     df_names <- c("cod_reg_saude", "sinasc")
   }
 
-  sinasc <- elastic::Search(conn, index="datasus-sinasc-dss",
+  sinasc <- elastic::Search(conn, index="datasus-sinasc",
                 body = q_body,
                 q = query,
                 asdf = TRUE)

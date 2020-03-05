@@ -111,7 +111,7 @@ get_sim <- function(conn, agr,
 
   # Request from ElasticSearch
 
-  sim <- elastic::Search(conn, index="datasus-sim-dss",
+  sim <- elastic::Search(conn, index="datasus-sim",
                     body = q_body,
                     q = query,
                     asdf = TRUE)

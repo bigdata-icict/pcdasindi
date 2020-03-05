@@ -51,7 +51,7 @@ get_sih <- function(conn, agr,
 
   q_diag_princ <- NULL
   if(!is.null(diag_princ)){
-    q_diag_princ <- paste0(" AND " ,"DIAG_PRINC:\"", diag_princ, "\"")
+    q_diag_princ <- paste0(" AND " ,"DIAG_PRINC:", diag_princ)
   }
 
   q_diag_princ_capitulo <- NULL

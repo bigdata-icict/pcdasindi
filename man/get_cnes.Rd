@@ -25,7 +25,7 @@ get_cnes(
 
 \item{vinc_sus}{numeric. Health units with SUS relationship. 1 for yes and 0 for no.}
 
-\item{leitos_hosp}{numeric. Health units with hospital, circury and other kinds of beds.}
+\item{leitos_hosp}{numeric. Health units with hospital, circury and other kinds of beds. 1 for yes and 0 for no.}
 
 \item{tipo_unidade}{string. Health unit type.}
 
@@ -36,7 +36,7 @@ get_cnes(
 \item{agg}{string. Aggregation level. 'mun' for municipalities, 'uf' for "unidades federativas" or 'regsaude' for "regiões de saúde".}
 }
 \value{
-A \code{data.frame} containing number of hospital admission authorizations (\code{sih}) for the aggregation level.
+A \code{data.frame} containing number of health units for the aggregation level.
 }
 \description{
 This function retrieves health units data from PCDaS ElasticSearch cluster for a specified year.
@@ -46,9 +46,8 @@ This function uses raw data from the Cadastro Nacional de Estabelecimentos de Sa
 The CID-10 codes and name for chapters, group, category and subcategories of basic cause of death can be inspected at the same address above.
 }
 \examples{
-sim <- get_sih(conn = conn, ano = 2010, agr = "mun", sexo = "Masculino")
-sim <- get_sih(conn = conn, ano = 2010, agr = "mun", diag_princ = "J448")
-sim <- get_sih(conn = conn, ano = 2010, agr = "mun", idade_anos_min = 0, idade_anos_max = 10)
-sim <- get_sih(conn = conn, ano = 2010, agr = "mun", proced_real = 310010039)
-sih <- get_sih(conn = conn, agr = "mun", lucene_query = 'ano_internacao: 2010 AND def_raca_cor: "Preta" or "Branca"')
+cnes <- get_cnes(conn = conn, agr = "mun", ano_competen = 2010, mes_competen = 6)
+cnes <- get_cnes(conn = conn, agr = "mun", ano_competen = 2010, mes_competen = 6, vinc_sus = 1)
+cnes <- get_cnes(conn = conn, agr = "mun", ano_competen = 2010, mes_competen = 6, leitos_hosp = 1)
+cnes <- get_cnes(conn = conn, agr = "mun", ano_competen = 2010, mes_competen = 6, tipo_unidade = "HOSPITAL GERAL")
 }
